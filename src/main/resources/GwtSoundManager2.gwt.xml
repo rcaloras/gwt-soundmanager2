@@ -5,8 +5,7 @@
 
   <!-- Inherit the core Web Toolkit stuff.                        -->
   <inherits name='com.google.gwt.user.User'/>
-  <inherits name='com.gwtsm2.GwtSoundManager2'/>
-  <source path="com"/>
+  <source path="com/chj/gwt/client"/>
   
    <script src="soundmanager2.js">                                                                                                                                                                 
         <![CDATA[                                                                                                                                                                                   

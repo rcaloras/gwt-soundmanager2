@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit 2.2.0//EN"
+		"http://google-web-toolkit.googlecode.com/svn/tags/2.4.0/distro-source/core/src/gwt-module.dtd">
+<module>
+
+  <!-- Inherit the core Web Toolkit stuff.                        -->
+  <inherits name='com.google.gwt.user.User'/>
+  <inherits name='com.gwtsm2.GwtSoundManager2'/>
+  
+   <script src="soundmanager2.js">                                                                                                                                                                 
+        <![CDATA[                                                                                                                                                                                   
+            if ($wnd.window.addEventListener) {                                                                                                                                                     
+              $wnd.soundManager.beginDelayedInit();                                                                                                                                                 
+              return true;                                                                                                                                                                          
+            } else if ($wnd.window.attachEvent) {                                                                                                                                                   
+              $wnd.soundManager.beginInit();                                                                                                                                                        
+              return true;                                                                                                                                                                          
+            } else {                                                                                                                                                                                
+                return false;                                                                                                                                                             
+            }                                                                                                                                                                                       
+        ]]>                                                                                                                                                                                         
+    </script>      
+
+</module>

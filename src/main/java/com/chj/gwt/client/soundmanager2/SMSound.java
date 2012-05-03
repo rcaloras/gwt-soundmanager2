@@ -11,6 +11,7 @@ import com.google.gwt.core.client.JavaScriptObject;
  * the sound initially.
  * 
  * @author JMILLER
+ * @author RCALORAS
  * 
  */
 public class SMSound {
@@ -94,15 +95,34 @@ public class SMSound {
 
 	public int getDurationEstimate() {
 		try {
-			return durationEstimate() / 1000;
+			int estimate = durationEstimate();
+			if(estimate == -1){
+				return estimate;
+			}
+			else{
+				return durationEstimate() / 1000;
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			return -1;
 		}
 	}
-
+	
+	/*
+	 * Use check due to this error:
+	 * Something other than an int was returned from JSNI method 
+	 * '@com.chj.gwt.client.soundmanager2.SMSound::durationEstimate()': 
+	 * JS value of type null, expected int.
+	 */
 	private native int durationEstimate()/*-{
-	 return this.@com.chj.gwt.client.soundmanager2.SMSound::obj.durationEstimate;
+	 var test = this.@com.chj.gwt.client.soundmanager2.SMSound::obj.durationEstimate;
+	 if(test != null){
+	 	return test;
+	 }
+	 else{
+	 	return -1;
+	 	}
+	 
 	 }-*/;
 
 	public boolean getLoaded() {
@@ -113,6 +133,12 @@ public class SMSound {
 	 return this.@com.chj.gwt.client.soundmanager2.SMSound::obj.loaded;
 	 }-*/;
 
+	/**
+	 * Numeric value indicating the current playing state of the sound.
+	 * 
+	 * Note that a 1 may not always guarantee that sound is being heard, given buffering and autoPlay status.
+	 * @return 0 for stopped/uninitialised, 1 for playing or buffering sound.
+	 */
 	public int getPlayState() {
 		return playState();
 	}

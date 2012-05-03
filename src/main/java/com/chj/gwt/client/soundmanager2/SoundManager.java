@@ -3,6 +3,7 @@ package com.chj.gwt.client.soundmanager2;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.user.client.Window;
 
@@ -16,6 +17,7 @@ import com.google.gwt.user.client.Window;
  * be set for every call to play or createSound.
  * 
  * @author JMILLER
+ * @author RCALORAS
  * 
  */
 public class SoundManager {
@@ -43,6 +45,19 @@ public class SoundManager {
 
 		public void multiShot(boolean multishot) {
 			setMultiShot(multishot);
+		}
+		
+		private native void isMovieStar(boolean auto)/*-{
+		 $wnd.soundManager.defaultOptions.isMovieStar = isMp4;
+		 }-*/;
+		/**
+		 * "MovieStar" MPEG4 audio mode. This is a flash9 feature.
+		 * 
+		 * Null (default) = auto detect MP4, AAC etc. based on URL.
+		 * @param isMp4 true = force on, ignore URL
+		 */
+		public void setMovieStar(boolean isMp4){
+			isMovieStar(isMp4);
 		}
 
 		private native void setMultiShot(boolean multishot)/*-{
@@ -79,7 +94,7 @@ public class SoundManager {
 			executeWhilePlaying(callback);
 		}
 
-		private native boolean executeWhilePlaying(Callback callback)/*-{
+		private native void executeWhilePlaying(Callback callback)/*-{
 		 $wnd.soundManager.defaultOptions.whileplaying = function() {		
 		 callback.@com.chj.gwt.client.soundmanager2.Callback::execute()();
 		 }
@@ -187,18 +202,133 @@ public class SoundManager {
 	}
 
 	private SoundManager() {
+		soundManager2Constructor();
 	}
-
+	
+	private static native void soundManager2Constructor() /*-{
+    $wnd.soundManager = new $wnd.SoundManager();
+    }-*/;
+	
+	
+	private native void delayedInit() /*-{
+    $wnd.soundManager.beginDelayedInit(); ; // start SM2 init.
+    }-*/;
+	
+	private native void flashVersion(int version)/*-{
+	 $wnd.soundManager.flashVersion = version;
+	 }-*/;
+	
+	/**
+	 * Flash build to use (8 or 9.) Some API features require 9.
+	 * Default is 8.
+	 * @param version
+	 */
+	public void setFlashVersion(int version){
+		if((version ==9) || (version == 8)){
+			flashVersion(version);
+		}
+	}
+	
+	/**
+	 * Begin delayed init of SoundManager. Called to initialize
+	 * the SoundManager instance after it's been configured.
+	 * @return
+	 */
+	public void beginDelayedInit(){
+		delayedInit();
+	}
+	
+	private native void reboot() /*-{
+    $wnd.soundManager.reboot();
+}-*/;
+	
+	/**
+	 * Returns a fully instantiated and initialized SoundManager object ready to use.
+	 * 
+	 * @return Instantiated and initialized SoundManager singleton.
+	 */
+	public static SoundManager quickStart(){
+		if((soundManager != null) && soundManager.isOk()){
+			return soundManager;
+		}
+		SoundManager sm = getInstance();
+		sm.beginDelayedInit();
+		return sm;
+	}
+	
+	/**
+	 * Quick start parameters for coolhandjuke.com
+	 * FlashVersion 9 and NoSwfCache
+	 * @return
+	 */
+	public static SoundManager chjQuickStart(){
+		if((soundManager != null) && soundManager.isOk()){
+			return soundManager;
+		}
+		SoundManager sm = getInstance();
+		sm.setFlashVersion(9);
+		sm.setNoSWFCache(true);
+		sm.beginDelayedInit();
+		return sm;
+	}
+	
+	/**
+	 * Returns a fully instantiated and initialized SoundManager object ready to use.
+	 * 
+	 * @param swfPath Optional constructor arg, path to swf objects, or null.
+	 * @param flashversion The version of flash to use, 8 or 9.
+	 * @param debug debug mode enabled.
+	 * @return Instantiated and initialized SoundManager singleton.
+	 */
+	public static SoundManager quickStart(String swfPath, int flashversion, boolean debug){
+		if((soundManager != null) && soundManager.isOk()){
+			return soundManager;
+		}
+		SoundManager sm = getInstance();
+		sm.setSoundManagerURL(swfPath);
+		sm.setFlashVersion(flashversion);
+		sm.setDebugMode(debug);
+		sm.beginDelayedInit();
+		return sm;
+	}
+	
+	/**
+	 * A singleton instance of SoundManager.
+	 * smURL defaults to GWT.getModuleBaseURL().
+	 * 
+	 * If this instance has not been initialized, beginDelayedInit() must be called after configuration
+	 * but prior to use.
+	 * 
+	 * @return SoundManager singleton
+	 */
 	public static SoundManager getInstance() {
-		if (soundManager == null)
+		if (soundManager == null){
 			soundManager = new SoundManager();
+			soundManager.setSoundManagerURL(GWT.getModuleBaseURL());
+		}
 		return soundManager;
 	}
 
 	public DefaultOptions getDefaultOptions() {
 		return defaultOptions;
 	}
+	
+	/**
+	 * Msec to wait for flash movie to load before failing (0 = infinity)
+	 * @param milliseconds
+	 */
+	public void setFlashLoadTimeout(int milliseconds) {
+		flashLoadTimeout(milliseconds);
+	}
 
+	private native void flashLoadTimeout(int milliseconds) /*-{
+	 $wnd.soundManager.flashLoadTimeout(milliseconds); 	
+	 }-*/;
+	
+	/**
+	 * Path to SWF files. 
+	 * @param url
+	 */
 	public void setSoundManagerURL(String url) {
 		soundManagerURL(url);
 	}
@@ -216,6 +346,19 @@ public class SoundManager {
 
 	private native void debugMode(boolean debug)/*-{
 	 $wnd.soundManager.debugMode=debug;
+	 }-*/;
+	
+	/**Returns a boolean indicating whether soundManager has attempted to and succeeded in initialising.
+	 * Useful when you want to create or play a sound without knowing SM2's current state.
+	 * 
+	 * @return false if called before initialisation, true otherwise.
+	 */
+	public boolean ok() {
+		return isOk();
+	}
+
+	private native boolean isOk()/*-{
+	 return $wnd.soundManager.ok();
 	 }-*/;
 
 	/**
@@ -246,6 +389,8 @@ public class SoundManager {
 	public void setAllowPolling(boolean polling) {
 		allowPolling(polling);
 	}
+	
+	
 
 	private native void allowPolling(boolean polling)/*-{
 	 $wnd.soundManager.allowPolling=polling;
@@ -260,7 +405,36 @@ public class SoundManager {
 	}
 
 	private native void nullURL(String url)/*-{
-	 $soundManager.nullURL=url;
+	 $wnd.soundManager.nullURL=url;
+	 }-*/;
+	
+	/**
+	 * Overrides useHTML5audio. 
+	 * 
+	 * If true and flash support present, will try to use flash for MP3/MP4 
+	 * as needed since HTML5 audio support is still quirky in browsers.
+	 * 
+	 * @param preferFlash
+	 */
+	public void setPreferFlash(boolean preferFlash) {
+		preferFlash(preferFlash);
+	}
+
+	private native void preferFlash(boolean flashPreference)/*-{
+	 $wnd.soundManager.preferFlash = flashPreference
+	 }-*/;
+	
+	/**
+	 * If true, appends ?ts={date} to break aggressive SWF caching.
+	 * 
+	 * @param noCache
+	 */
+	public void setNoSWFCache(boolean noCache) {
+		noSWFCache(noCache);
+	}
+
+	private native void noSWFCache(boolean noCache)/*-{
+	 $wnd.soundManager.noSWFCache = noCache
 	 }-*/;
 
 	/**
@@ -457,11 +631,14 @@ public class SoundManager {
 	 }-*/;
 
 	/**
-	 * @param id
-	 *            of the sound.
-	 * @return the SMSound of a sound created by SoundManager.
+	 * @param Id of the sound.
+	 *           
+	 * @return the SMSound of a sound created by SoundManager, null if one doesn't exist.
 	 */
 	public SMSound getSoundById(String id) {
+		if(getSMSound(id) == null){
+			return null;
+		}
 		return new SMSound(getSMSound(id));
 	}
 

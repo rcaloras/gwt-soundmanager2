@@ -3,22 +3,10 @@
 		"http://google-web-toolkit.googlecode.com/svn/tags/2.4.0/distro-source/core/src/gwt-module.dtd">
 <module>
 
-  <!-- Inherit the core Web Toolkit stuff.                        -->
-  <inherits name='com.google.gwt.user.User'/>
-  <source path="com/chj/gwt/client"/>
-  
-   <script src="soundmanager2.js">                                                                                                                                                                 
-        <![CDATA[                                                                                                                                                                                   
-            if ($wnd.window.addEventListener) {                                                                                                                                                     
-              $wnd.soundManager.beginDelayedInit();                                                                                                                                                 
-              return true;                                                                                                                                                                          
-            } else if ($wnd.window.attachEvent) {                                                                                                                                                   
-              $wnd.soundManager.beginInit();                                                                                                                                                        
-              return true;                                                                                                                                                                          
-            } else {                                                                                                                                                                                
-                return false;                                                                                                                                                             
-            }                                                                                                                                                                                       
-        ]]>                                                                                                                                                                                         
-    </script>      
+	<!-- Inherit the core Web Toolkit stuff. -->
+	<inherits name='com.google.gwt.user.User' />
+	<source path="com/chj/gwt/client" />
+	
+	<script src="soundmanager2.js"/>                                                                                                                                                                 
 
 </module>

@@ -2,6 +2,8 @@ package com.chj.gwt.client.soundmanager2;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JavaScriptObject;
@@ -25,7 +27,10 @@ public class SoundManager {
 	public static SoundManager soundManager;
 
 	public DefaultOptions defaultOptions = new DefaultOptions();
-
+	
+	/* Used for storing SMSound IDs that reference SMSounds that have been created */
+	ArrayList<String> soundIDs = new ArrayList<String>();
+	
 	public class DefaultOptions {
 		public void autoPlay(boolean auto) {
 			setAutoPlay(auto);
@@ -249,25 +254,10 @@ public class SoundManager {
 	 */
 	public static SoundManager quickStart(){
 		if((soundManager != null) && soundManager.isOk()){
+			Logger.getLogger(SoundManager.class.getName()).log(Level.WARNING, "SoundManager2 is already started! Returning current instance.");
 			return soundManager;
 		}
 		SoundManager sm = getInstance();
-		sm.beginDelayedInit();
-		return sm;
-	}
-	
-	/**
-	 * Quick start parameters for coolhandjuke.com
-	 * FlashVersion 9 and NoSwfCache
-	 * @return
-	 */
-	public static SoundManager chjQuickStart(){
-		if((soundManager != null) && soundManager.isOk()){
-			return soundManager;
-		}
-		SoundManager sm = getInstance();
-		sm.setFlashVersion(9);
-		sm.setNoSWFCache(true);
 		sm.beginDelayedInit();
 		return sm;
 	}
@@ -282,10 +272,13 @@ public class SoundManager {
 	 */
 	public static SoundManager quickStart(String swfPath, int flashversion, boolean debug){
 		if((soundManager != null) && soundManager.isOk()){
+			Logger.getLogger(SoundManager.class.getName()).log(Level.WARNING, "SoundManager2 is already started! Returning current instance.");
 			return soundManager;
 		}
 		SoundManager sm = getInstance();
-		sm.setSoundManagerURL(swfPath);
+		if(swfPath != null){
+			sm.setSoundManagerURL(swfPath);
+		}
 		sm.setFlashVersion(flashversion);
 		sm.setDebugMode(debug);
 		sm.beginDelayedInit();
@@ -409,7 +402,24 @@ public class SoundManager {
 	 }-*/;
 	
 	/**
-	 * Overrides useHTML5audio. 
+	 * Defaults to true.
+	 * 
+	 * Use HTML5 Audio() where API is supported (most Safari, Chrome versions), Firefox (no MP3/MP4.) 
+	 * Ideally, transparent vs. Flash API where possible.
+	 * 
+	 * @param useHTML5
+	 */
+	public void setUseHtml5Audio(boolean useHTML5) {
+		useHTML5Audio(useHTML5);
+	}
+
+	private native void useHTML5Audio(boolean useHTML5)/*-{
+	 $wnd.soundManager.useHTML5Audio = useHTML5;
+	 }-*/;
+	
+	
+	/**
+	 * Overrides useHTML5audio. Defaults to true. 
 	 * 
 	 * If true and flash support present, will try to use flash for MP3/MP4 
 	 * as needed since HTML5 audio support is still quirky in browsers.
@@ -421,7 +431,7 @@ public class SoundManager {
 	}
 
 	private native void preferFlash(boolean flashPreference)/*-{
-	 $wnd.soundManager.preferFlash = flashPreference
+	 $wnd.soundManager.preferFlash = flashPreference;
 	 }-*/;
 	
 	/**
@@ -542,6 +552,7 @@ public class SoundManager {
 	public void play(String id, String path) {
 		executePlay(id, path);
 	}
+	
 
 	private native void executePlay(String id, String path) /*-{
 	 $wnd.soundManager.play(id, path); 	
@@ -691,8 +702,22 @@ public class SoundManager {
 	 }
 	 }-*/;
 	
-	ArrayList soundIDs = new ArrayList();
-	public List getSoundIDs() {
+	/**
+	 * Gets the list of currently created sounds.
+	 * @return The list of SMSound objects currently created
+	 */
+	public List<SMSound> getSounds(){
+		ArrayList<SMSound> sounds = new ArrayList<SMSound>();
+		for(String soundID: getSoundIDs()){
+			SMSound found = getSoundById(soundID);
+			if(found != null){
+				sounds.add(getSoundById(soundID));
+			}
+		}
+		return sounds;
+	}
+	
+	public List<String> getSoundIDs() {
 		soundIDs.clear();
 		soundIDs();
 		return soundIDs;

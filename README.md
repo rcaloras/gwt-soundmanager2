@@ -40,12 +40,12 @@ mvn compile package install
 
 ##Use it to make some noise!
 ```java
-  final String SOUND_ID = 'soundID';
+   final String SOUND_ID = 'soundID';
    SoundManager sm = SoundManager.quickStart();
    sm.play(SOUND_ID, 'path/to/some/.mp3');
 ```
 
-##Need to configure SoundManager2?
+###Need to configure SoundManager2?
 Obtain an SM2 instance, configure it, and then beginDelayedInit.
 ```java
   SoundManager soundManager = SoundManager.getInstance();

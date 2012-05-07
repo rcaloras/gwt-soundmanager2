@@ -44,18 +44,13 @@
 	</profiles>
 
 	<properties>
-		 <gwt.version>2.4.0-rc1</gwt.version>
+		<gwt.version>2.4.0</gwt.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>com.google.gwt</groupId>
 			<artifactId>gwt-user</artifactId>
-			<version>${gwt.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.google.gwt</groupId>
-			<artifactId>gwt-dev</artifactId>
 			<version>${gwt.version}</version>
 		</dependency>
 		<dependency>

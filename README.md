@@ -42,14 +42,14 @@ mvn compile package install
 ```java
    final String SOUND_ID = 'soundID';
    SoundManager sm = SoundManager.quickStart();
-   sm.play(SOUND_ID, 'path/to/some/.mp3');
+   sm.play(SOUND_ID, '/path/to/some/.mp3');
 ```
 
 ###Need to configure SoundManager2?
 Obtain an SM2 instance, configure it, and then beginDelayedInit.
 ```java
   SoundManager soundManager = SoundManager.getInstance();
-  soundManager.setUseHTML5Audio(true);
+  soundManager.setUseHtml5Audio(true)
   soundManager.setFlashVersion(9);
   soundManager.setNoSWFCache(true);
   soundManager.setFlashLoadTimeout(1000);

@@ -315,7 +315,7 @@ public class SoundManager {
 	}
 
 	private native void flashLoadTimeout(int milliseconds) /*-{
-	 $wnd.soundManager.flashLoadTimeout(milliseconds); 	
+	 $wnd.soundManager.flashLoadTimeout = milliseconds; 
 	 }-*/;
 	
 	/**
@@ -538,7 +538,7 @@ public class SoundManager {
 	}
 
 	private native void volume(String id, int volume) /*-{
-	 $wnd.soundManager.volume(id, volume); 	
+	 $wnd.soundManager.setVolume(id, volume); 	
 	 }-*/;
 
 	/**

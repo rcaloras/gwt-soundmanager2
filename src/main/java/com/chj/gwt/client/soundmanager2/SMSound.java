@@ -51,20 +51,44 @@ public class SMSound {
 	 return this.@com.chj.gwt.client.soundmanager2.SMSound::obj.id3;
 	 }-*/;
 
+	/**
+	 * The number of bytes currently received while loading a sound.
+	 * 
+	 * @return bytes currently received, -1 on error
+	 */
 	public int getBytesLoaded() {
 		return bytesLoaded();
 	}
 
 	private native int bytesLoaded()/*-{
-	 return this.@com.chj.gwt.client.soundmanager2.SMSound::obj.bytesLoaded;
+	 var test = this.@com.chj.gwt.client.soundmanager2.SMSound::obj.bytesLoaded;
+	 if(test != null){
+	 	return test;
+	 }	
+	 else{
+	 	return -1;
+	 	}
+	 
 	 }-*/;
-
+	
+	/**
+	 * The total number of bytes to be downloaded, while loading a sound.
+	 * 
+	 * @return total number of bytes, -1 on error.
+	 */
 	public int getBytesTotal() {
 		return bytesTotal();
 	}
 
 	private native int bytesTotal()/*-{
-	 return this.@com.chj.gwt.client.soundmanager2.SMSound::obj.bytesTotal;
+	  var test = this.@com.chj.gwt.client.soundmanager2.SMSound::obj.bytesTotal;
+	 if(test != null){
+	 	return test;
+	 }
+	 else{
+	 	return -1;
+	 	}
+	 
 	 }-*/;
 
 	public int getPosition() {
@@ -93,6 +117,11 @@ public class SMSound {
 	 return this.@com.chj.gwt.client.soundmanager2.SMSound::obj.duration;
 	 }-*/;
 
+	/**
+	 * The estimated duration of the sound, specified in milliseconds.
+	 * 
+	 * @return estimated duration in milliseconds, -1 on error.
+	 */
 	public int getDurationEstimate() {
 		try {
 			int estimate = durationEstimate();

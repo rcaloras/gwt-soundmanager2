@@ -7,6 +7,8 @@
 	<inherits name='com.google.gwt.user.User' />
 	<source path="com/chj/gwt/client" />
 	
+	<!-- Defines SM2_DEFER = true to allow lazy loading when GWTSoundManager2 needs to be used -->
+	<script src="soundmanager2defer.js"/>
 	<script src="soundmanager2.js"/>                                                                                                                                                                 
 
 </module>

@@ -673,10 +673,12 @@ public class SoundManager {
 	 }-*/;
 
 	/**
-	 * fired when Sound Manager is ready to use.
+	 * Fired when Sound Manager is ready to use.
 	 * 
+	 * @deprecated Use the newer soundManager.onReady() instead of this method.
 	 * @param callback
 	 */
+	@Deprecated
 	public void onLoad(Callback callback) {
 		executeOnLoad(callback);
 	}
@@ -686,12 +688,30 @@ public class SoundManager {
 	 callback.@com.chj.gwt.client.soundmanager2.Callback::execute()();
 	 }
 	 }-*/;
-
+	
 	/**
-	 * fired when Sound Manager fails to successfully load or initialize.
+	 * Queue onload()-style event listener(s), triggered when soundManager 
+	 * has successfully started.
 	 * 
 	 * @param callback
 	 */
+	public void onReady(Callback callback) {
+		executeOnReady(callback);
+	}
+
+	private native void executeOnReady(Callback callback)/*-{
+	  function readyFunction() {
+	 callback.@com.chj.gwt.client.soundmanager2.Callback::execute()();
+	 }
+	 $wnd.soundManager.onready(readyFunction);
+	 }-*/;
+
+	/**
+	 * fired when Sound Manager fails to successfully load or initialize.
+	 * @deprecated Use the newer soundManager.onTimeout() instead of this method.
+	 * @param callback
+	 */
+	@Deprecated
 	public void onError(Callback callback) {
 		executeOnError(callback);
 	}
@@ -700,6 +720,24 @@ public class SoundManager {
 	 $wnd.soundManager.onerror = function() {
 	 callback.@com.chj.gwt.client.soundmanager2.Callback::execute()();
 	 }
+	 }-*/;
+	
+	/**
+	 * Queues an event callback/handler for SM2 init failure, processed at 
+	 * (or immediately, if added after) SM2 initialization has failed, 
+	 * just before soundManager.onerror() is called.
+	 * 
+	 * @param callback
+	 */
+	public void onTimeout(Callback callback) {
+		executeOnTimeout(callback);
+	}
+
+	private native void executeOnTimeout(Callback callback) /*-{
+	function timeoutFunction() {
+	 callback.@com.chj.gwt.client.soundmanager2.Callback::execute()();
+	 }
+	  $wnd.soundManager.ontimeout(timeoutFunction);
 	 }-*/;
 	
 	/**

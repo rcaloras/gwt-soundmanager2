@@ -8,7 +8,29 @@
 	<name>gwt-soundmanager2</name>
 	<description>Updated GWT Soundmanager2 wrapper.</description>
 	<url>https://github.com/rcaloras/gwt-soundmanager2</url>
-	
+	<scm>
+		<connection>scm:git:git@github.com:rcaloras/gwt-soundmanager2.git</connection>
+		<developerConnection>scm:git:git@github.com:rcaloras/gwt-soundmanager2.git</developerConnection>
+		<url>http://github.com/rcaloras/gwt-soundmanager2</url>
+	</scm>
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+	<distributionManagement>
+		<repository>
+			<id>repo</id>
+			<url>https://raw.github.com/rcaloras/rcaloras-mvn-repo/master/releases</url>
+		</repository>
+		<snapshotRepository>
+			<id>snapshot-repo</id>
+			<url>https://raw.github.com/rcaloras/rcaloras-mvn-repo/master/snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
+
 	<profiles>
 		<profile>
 			<id>githubUpload</id>
@@ -20,6 +42,10 @@
 			</activation>
 			<build>
 				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-release-plugin</artifactId>
+					</plugin>
 					<plugin>
 						<groupId>com.github.github</groupId>
 						<artifactId>downloads-maven-plugin</artifactId>

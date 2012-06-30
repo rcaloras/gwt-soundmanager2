@@ -16,19 +16,23 @@ Follow us on [Twitter](http://www.twitter.com/coolhandjuke)! Any issues or quest
 #Quick Start to using GWT-SoundManager2
 ##Add it to your project
 
-Reference the jar file in your classpath. The latest .jar can be found here [gwt-soundmanager2-0.0.1-SNAPSHOT.jar](https://github.com/downloads/rcaloras/gwt-soundmanager2/gwt-soundmanager2-0.0.1-SNAPSHOT.jar), in the [Downloads](https://github.com/rcaloras/gwt-soundmanager2/downloads) tab.
+Reference the jar file in your classpath. The latest .jar can be found here [gwt-soundmanager2-0.1.1-SNAPSHOT.jar](https://github.com/downloads/rcaloras/gwt-soundmanager2/gwt-soundmanager2-0.1.1-SNAPSHOT.jar), in the [Downloads](https://github.com/rcaloras/gwt-soundmanager2/downloads) tab.
 ###If you're using maven
-```bash
-git clone git://github.com/rcaloras/gwt-soundmanager2.git 
-cd gwt-soundmanager2 
-mvn compile package install
+####Add the repository
+```xml
+</repositories>
+     <repository>
+        <id>gwt-soundmanager2-releases</id>
+        <url>https://raw.github.com//rcaloras-mvn-repo/master/releases</url>
+    </repository>
+</repositories>
 ```
 ...add the dependency to your pom.xml.   
 ```xml
       <dependency>
          <groupId>com.chj</groupId>
          <artifactId>gwt-soundmanager2</artifactId>
-         <version>0.0.1-SNAPSHOT</version>
+         <version>0.1.0</version>
       </dependency>
 ```
 

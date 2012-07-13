@@ -20,7 +20,7 @@ Reference the jar file in your classpath. The latest .jar can be found here [gwt
 ###If you're using maven
 ####Add the repository
 ```xml
-</repositories>
+<repositories>
      <repository>
         <id>gwt-soundmanager2-releases</id>
         <url>https://raw.github.com/rcaloras/rcaloras-mvn-repo/master/releases</url>

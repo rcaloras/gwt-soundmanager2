@@ -16,7 +16,7 @@ Follow us on [Twitter](http://www.twitter.com/coolhandjuke)! Any issues or quest
 #Quick Start to using GWT-SoundManager2
 ##Add it to your project
 
-Reference the jar file in your classpath. The latest .jar can be found here [gwt-soundmanager2-0.1.1-SNAPSHOT.jar](https://github.com/downloads/rcaloras/gwt-soundmanager2/gwt-soundmanager2-0.1.1-SNAPSHOT.jar), in the [Downloads](https://github.com/rcaloras/gwt-soundmanager2/downloads) tab.
+Reference the jar file in your classpath. The latest .jar can be found here [gwt-soundmanager2-0.1.2-SNAPSHOT.jar](https://github.com/downloads/rcaloras/gwt-soundmanager2/gwt-soundmanager2-0.1.2-SNAPSHOT.jar), in the [Downloads](https://github.com/rcaloras/gwt-soundmanager2/downloads) tab.
 ###If you're using maven
 ####Add the repository
 ```xml
@@ -32,7 +32,7 @@ Reference the jar file in your classpath. The latest .jar can be found here [gwt
       <dependency>
          <groupId>com.chj</groupId>
          <artifactId>gwt-soundmanager2</artifactId>
-         <version>0.1.0</version>
+         <version>0.1.1</version>
       </dependency>
 ```
 

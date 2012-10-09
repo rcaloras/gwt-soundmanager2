@@ -14,7 +14,7 @@ This wrapper was created as a fork of gwt-sound, originally written by Jeffery M
 
 Follow us on [Twitter](http://www.twitter.com/coolhandjuke)! Any issues or questions are more than welcome.
 ##Working Example
-There's also a small example project [Gwt-SoundManager2 Example](https://github.com/rcaloras/gwt-soundmanager2-example)!
+There's also a small example project [Gwt-SoundManager2 Example](https://github.com/rcaloras/gwt-soundmanager2-example).
 
 #Quick Start to using GWT-SoundManager2
 ##Add it to your project
@@ -48,8 +48,14 @@ Reference the jar file in your classpath. The latest .jar can be found here [gwt
 ##Use it to make some noise!
 ```java
    final String SOUND_ID = 'soundID';
-   SoundManager sm = SoundManager.quickStart();
-   sm.play(SOUND_ID, '/path/to/some/.mp3');
+   final SoundManager sm = SoundManager.quickStart();
+   //Play our sound once SoundManager2 has loaded
+   sm.onReady(new com.chj.gwt.client.soundmanager2.Callback(){
+   
+       public void execute() {
+	sm.play(SOUND_ID,"/path/to/some/.mp3");
+      }
+   });
 ```
 
 ###Need to configure SoundManager2?

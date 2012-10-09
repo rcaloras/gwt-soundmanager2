@@ -12,10 +12,10 @@ It looked like the state of audio in GWT applications was being neglected and no
 
 This wrapper was created as a fork of gwt-sound, originally written by Jeffery Miller. It's now based on GWT 2.4 and the latest version of SoundManager2 (Which now has killer support for all kinds of browsers. Horray for Android and Iphone!) It was developed for, and currently being used by, [Coolhandjuke](http://www.coolhandjuke.com).
 
+Follow us on [Twitter](http://www.twitter.com/coolhandjuke)! Any issues or questions are more than welcome.
 ##Working Example
 There's also a small example project [Gwt-SoundManager2 Example](https://github.com/rcaloras/gwt-soundmanager2-example)!
 
-Follow us on [Twitter](http://www.twitter.com/coolhandjuke)! Any issues or questions are more than welcome.
 #Quick Start to using GWT-SoundManager2
 ##Add it to your project
 

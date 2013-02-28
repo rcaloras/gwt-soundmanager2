@@ -35,7 +35,7 @@ Reference the jar file in your classpath. The latest .jar can be found here [gwt
       <dependency>
          <groupId>com.chj</groupId>
          <artifactId>gwt-soundmanager2</artifactId>
-         <version>0.1.1</version>
+         <version>0.1.2</version>
       </dependency>
 ```
 

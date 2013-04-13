@@ -8,11 +8,11 @@
  * Code provided under the BSD License:
  * http://schillmania.com/projects/soundmanager2/license.txt
  *
- * V2.97a.20130101
+ * V2.97a.20130324 ("Mahalo" Edition)
  */
 
 /*global window, SM2_DEFER, sm2Debugger, console, document, navigator, setTimeout, setInterval, clearInterval, Audio, opera */
-/*jslint regexp: true, sloppy: true, white: true, nomen: true, plusplus: true */
+/*jslint regexp: true, sloppy: true, white: true, nomen: true, plusplus: true, todo: true */
 
 /**
  * About this file
@@ -166,6 +166,11 @@ function SoundManager(smURL, smID) {
       'required': false
     },
 
+    'opus': {
+      'type': ['audio/ogg; codecs=opus', 'audio/opus'],
+      'required': false
+    },
+
     'wav': {
       'type': ['audio/wav; codecs="1"', 'audio/wav', 'audio/wave', 'audio/x-wav'],
       'required': false
@@ -183,7 +188,7 @@ function SoundManager(smURL, smID) {
 
   // dynamic attributes
 
-  this.versionNumber = 'V2.97a.20130101';
+  this.versionNumber = 'V2.97a.20130324';
   this.version = null;
   this.movieURL = null;
   this.altURL = null;
@@ -260,7 +265,7 @@ function SoundManager(smURL, smID) {
 
   var SMSound,
   sm2 = this, globalHTML5Audio = null, flash = null, sm = 'soundManager', smc = sm + ': ', h5 = 'HTML5::', id, ua = navigator.userAgent, wl = window.location.href.toString(), doc = document, doNothing, setProperties, init, fV, on_queue = [], debugOpen = true, debugTS, didAppend = false, appendSuccess = false, didInit = false, disabled = false, windowLoaded = false, _wDS, wdCount = 0, initComplete, mixin, assign, extraOptions, addOnEvent, processOnEvents, initUserOnload, delayWaitForEI, waitForEI, setVersionInfo, handleFocus, strings, initMovie, preInit, domContentLoaded, winOnLoad, didDCLoaded, getDocument, createMovie, catchError, setPolling, initDebug, debugLevels = ['log', 'info', 'warn', 'error'], defaultFlashVersion = 8, disableObject, failSafely, normalizeMovieURL, oRemoved = null, oRemovedHTML = null, str, flashBlockHandler, getSWFCSS, swfCSS, toggleDebug, loopFix, policyFix, complain, idCheck, waitingForEI = false, initPending = false, startTimer, stopTimer, timerExecute, h5TimerCount = 0, h5IntervalTimer = null, parseURL, messages = [],
-  needsFlash = null, featureCheck, html5OK, html5CanPlay, html5Ext, html5Unload, domContentLoadedIE, testHTML5, event, slice = Array.prototype.slice, useGlobalHTML5Audio = false, lastGlobalHTML5URL, hasFlash, detectFlash, badSafariFix, html5_events, showSupport, flushMessages,
+  needsFlash = null, featureCheck, html5OK, html5CanPlay, html5Ext, html5Unload, domContentLoadedIE, testHTML5, event, slice = Array.prototype.slice, useGlobalHTML5Audio = false, lastGlobalHTML5URL, hasFlash, detectFlash, badSafariFix, html5_events, showSupport, flushMessages, wrapCallback,
   is_iDevice = ua.match(/(ipad|iphone|ipod)/i), isAndroid = ua.match(/android/i), isIE = ua.match(/msie/i), isWebkit = ua.match(/webkit/i), isSafari = (ua.match(/safari/i) && !ua.match(/chrome/i)), isOpera = (ua.match(/opera/i)), 
   mobileHTML5 = (ua.match(/(mobile|pre\/|xoom)/i) || is_iDevice || isAndroid),
   isBadSafari = (!wl.match(/usehtml5audio/i) && !wl.match(/sm2\-ignorebadua/i) && isSafari && !ua.match(/silk/i) && ua.match(/OS X 10_6_([3-7])/i)), // Safari 4 and 5 (excluding Kindle Fire, "Silk") occasionally fail to load/play HTML5 audio on Snow Leopard 10.6.3 through 10.6.7 due to bug(s) in QuickTime X and/or other underlying frameworks. :/ Confirmed bug. https://bugs.webkit.org/show_bug.cgi?id=32159
@@ -1118,10 +1123,10 @@ function SoundManager(smURL, smID) {
    * Applies when debugMode = true
    *
    * @param {string} sText The console message
-   * @param {object} sType Optional string: Log type of 'info', 'warn' or 'error', or object (to be dumped)
+   * @param {object} nType Optional log level (number), or object. Number case: Log type/style where 0 = 'info', 1 = 'warn', 2 = 'error'. Object case: Object to be dumped.
    */
 
-  this._writeDebug = function(sText, sType) {
+  this._writeDebug = function(sText, sTypeOrObject) {
 
     // pseudo-private console.log()-style output
     // <d>
@@ -1133,11 +1138,11 @@ function SoundManager(smURL, smID) {
     }
 
     if (hasConsole && sm2.useConsole) {
-      if (sType && typeof sType === 'object') {
+      if (sTypeOrObject && typeof sTypeOrObject === 'object') {
         // object passed; dump to console.
-        console.log(sText, sType);
-      } else if (debugLevels[sType] !== _undefined) {
-        console[debugLevels[sType]](sText);
+        console.log(sText, sTypeOrObject);
+      } else if (debugLevels[sTypeOrObject] !== _undefined) {
+        console[debugLevels[sTypeOrObject]](sText);
       } else {
         console.log(sText);
       }
@@ -1158,19 +1163,19 @@ function SoundManager(smURL, smID) {
       oItem.className = 'sm2-alt';
     }
 
-    if (sType === _undefined) {
-      sType = 0;
+    if (sTypeOrObject === _undefined) {
+      sTypeOrObject = 0;
     } else {
-      sType = parseInt(sType, 10);
+      sTypeOrObject = parseInt(sTypeOrObject, 10);
     }
 
     oItem.appendChild(doc.createTextNode(sText));
 
-    if (sType) {
-      if (sType >= 2) {
+    if (sTypeOrObject) {
+      if (sTypeOrObject >= 2) {
         oItem.style.fontWeight = 'bold';
       }
-      if (sType === 3) {
+      if (sTypeOrObject === 3) {
         oItem.style.color = '#ff3333';
       }
     }
@@ -1497,7 +1502,9 @@ function SoundManager(smURL, smID) {
         // if loaded and an onload() exists, fire immediately.
         if (s.readyState === 3 && instanceOptions.onload) {
           // assume success based on truthy duration.
-          instanceOptions.onload.apply(s, [(!!s.duration)]);
+          wrapCallback(s, function() {
+            instanceOptions.onload.apply(s, [(!!s.duration)]);
+          });
         }
         return s;
       }
@@ -1777,7 +1784,8 @@ function SoundManager(smURL, smID) {
 
       } else {
 
-        sm2._wD(fN);
+        // "play()"
+        sm2._wD(fN.substr(0, fN.lastIndexOf(':')));
 
       }
 
@@ -1887,7 +1895,7 @@ function SoundManager(smURL, smID) {
 
         if (!s.isHTML5) {
 
-          startOK = flash._start(s.id, s._iO.loops || 1, (fV === 9 ? s._iO.position : s._iO.position / 1000), s._iO.multiShot);
+          startOK = flash._start(s.id, s._iO.loops || 1, (fV === 9 ? s.position : s.position / 1000), s._iO.multiShot || false);
 
           if (fV === 9 && !startOK) {
             // edge case: no sound hardware, or 32-channel flash ceiling hit.
@@ -2706,9 +2714,9 @@ function SoundManager(smURL, smID) {
 
     this._setup_html5 = function(oOptions) {
 
-      var instanceOptions = mixin(s._iO, oOptions), d = decodeURI,
-          a = useGlobalHTML5Audio ? globalHTML5Audio  : s._a,
-          dURL = d(instanceOptions.url),
+      var instanceOptions = mixin(s._iO, oOptions),
+          a = useGlobalHTML5Audio ? globalHTML5Audio : s._a,
+          dURL = decodeURI(instanceOptions.url),
           sameURL;
 
       /**
@@ -2719,12 +2727,12 @@ function SoundManager(smURL, smID) {
 
       if (useGlobalHTML5Audio) {
 
-        if (dURL === lastGlobalHTML5URL) {
+        if (dURL === decodeURI(lastGlobalHTML5URL)) {
           // global HTML5 audio: re-use of URL
           sameURL = true;
         }
 
-      } else if (dURL === lastURL) {
+      } else if (dURL === decodeURI(lastURL)) {
 
         // options URL is the same as the "last" URL, and we used (loaded) it
         sameURL = true;
@@ -2744,7 +2752,7 @@ function SoundManager(smURL, smID) {
 
             }
 
-          } else if (!useGlobalHTML5Audio && dURL === d(lastURL)) {
+          } else if (!useGlobalHTML5Audio && dURL === decodeURI(lastURL)) {
 
             // non-global HTML5 reuse case: same url, ignore request
             s._apply_loop(a, instanceOptions.loops);
@@ -2905,7 +2913,9 @@ function SoundManager(smURL, smID) {
       s._onbufferchange(0);
 
       if (s._iO.onload) {
-        s._iO.onload.apply(s, [loadOK]);
+        wrapCallback(s, function() {
+          s._iO.onload.apply(s, [loadOK]);
+        });
       }
 
       return true;
@@ -3004,7 +3014,9 @@ function SoundManager(smURL, smID) {
           // fire onfinish for last, or every instance
           if (io_onfinish) {
             sm2._wD(s.id + ': onfinish()');
-            io_onfinish.apply(s);
+            wrapCallback(s, function() {
+              io_onfinish.apply(s);
+            });
           }
         }
 
@@ -3275,6 +3287,23 @@ function SoundManager(smURL, smID) {
     }
 
     return o1;
+
+  };
+
+  wrapCallback = function(oSound, callback) {
+
+    /**
+     * 03/03/2013: Fix for Flash Player 11.6.602.171 + Flash 8 (flashVersion = 8) SWF issue
+     * setTimeout() fix for certain SMSound callbacks like onload() and onfinish(), where subsequent calls like play() and load() fail when Flash Player 11.6.602.171 is installed, and using soundManager with flashVersion = 8 (which is the default).
+     * Not sure of exact cause. Suspect race condition and/or invalid (NaN-style) position argument trickling down to the next JS -> Flash _start() call, in the play() case.
+     * Fix: setTimeout() to yield, plus safer null / NaN checking on position argument provided to Flash.
+     * https://getsatisfaction.com/schillmania/topics/recent_chrome_update_seems_to_have_broken_my_sm2_audio_player
+     */
+    if (!oSound.isHTML5 && fV === 8) {
+      window.setTimeout(callback, 0);
+    } else {
+      callback();
+    }
 
   };
 
@@ -4675,7 +4704,7 @@ function SoundManager(smURL, smID) {
 
         if (h5IntervalTimer === null && h5TimerCount === 0) {
 
-          h5IntervalTimer = window.setInterval(timerExecute, sm2.html5PollingInterval);
+          h5IntervalTimer = setInterval(timerExecute, sm2.html5PollingInterval);
    
         }
 
@@ -4721,7 +4750,7 @@ function SoundManager(smURL, smID) {
 
       // no active timers, stop polling interval.
 
-      window.clearInterval(h5IntervalTimer);
+      clearInterval(h5IntervalTimer);
 
       h5IntervalTimer = null;
 

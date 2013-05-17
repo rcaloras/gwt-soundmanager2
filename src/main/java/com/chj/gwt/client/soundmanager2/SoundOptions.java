@@ -3,9 +3,9 @@ package com.chj.gwt.client.soundmanager2;
 /**
  * SoundOptions is a wrapper around every option you can pass into SoundManager.
  * Each of these options are set on the SMSound object being created.
- * 
+ *
  * @author JMILLER
- * 
+ *
  */
 public class SoundOptions {
 

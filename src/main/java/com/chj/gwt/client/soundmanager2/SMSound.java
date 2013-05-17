@@ -9,10 +9,10 @@ import com.google.gwt.core.client.JavaScriptObject;
  * SMSound is used to collect data on the sound loaded up by SoundManager. To
  * use callbacks on a particular sound use SoundOptions callbacks when creating
  * the sound initially.
- * 
+ *
  * @author JMILLER
  * @author RCALORAS
- * 
+ *
  */
 public class SMSound {
 
@@ -40,7 +40,7 @@ public class SMSound {
 
 	/**
 	 * Need to abstract out again to make ID3 an actual object
-	 * 
+	 *
 	 * @return ID3
 	 */
 	public ID3 getID3() {
@@ -53,7 +53,7 @@ public class SMSound {
 
 	/**
 	 * The number of bytes currently received while loading a sound.
-	 * 
+	 *
 	 * @return bytes currently received, -1 on error
 	 */
 	public int getBytesLoaded() {
@@ -64,16 +64,16 @@ public class SMSound {
 	 var test = this.@com.chj.gwt.client.soundmanager2.SMSound::obj.bytesLoaded;
 	 if(test != null){
 	 	return test;
-	 }	
+	 }
 	 else{
 	 	return -1;
 	 	}
-	 
+
 	 }-*/;
-	
+
 	/**
 	 * The total number of bytes to be downloaded, while loading a sound.
-	 * 
+	 *
 	 * @return total number of bytes, -1 on error.
 	 */
 	public int getBytesTotal() {
@@ -88,7 +88,7 @@ public class SMSound {
 	 else{
 	 	return -1;
 	 	}
-	 
+
 	 }-*/;
 
 	public int getPosition() {
@@ -119,7 +119,7 @@ public class SMSound {
 
 	/**
 	 * The estimated duration of the sound, specified in milliseconds.
-	 * 
+	 *
 	 * @return estimated duration in milliseconds, -1 on error.
 	 */
 	public int getDurationEstimate() {
@@ -136,11 +136,11 @@ public class SMSound {
 			return -1;
 		}
 	}
-	
+
 	/*
 	 * Use check due to this error:
-	 * Something other than an int was returned from JSNI method 
-	 * '@com.chj.gwt.client.soundmanager2.SMSound::durationEstimate()': 
+	 * Something other than an int was returned from JSNI method
+	 * '@com.chj.gwt.client.soundmanager2.SMSound::durationEstimate()':
 	 * JS value of type null, expected int.
 	 */
 	private native int durationEstimate()/*-{
@@ -151,7 +151,7 @@ public class SMSound {
 	 else{
 	 	return -1;
 	 	}
-	 
+
 	 }-*/;
 
 	public boolean getLoaded() {
@@ -164,7 +164,7 @@ public class SMSound {
 
 	/**
 	 * Numeric value indicating the current playing state of the sound.
-	 * 
+	 *
 	 * Note that a 1 may not always guarantee that sound is being heard, given buffering and autoPlay status.
 	 * @return 0 for stopped/uninitialised, 1 for playing or buffering sound.
 	 */
@@ -174,10 +174,10 @@ public class SMSound {
 
 	/**
 	 * 0 = stopped/uninitialised
-	 * 
+	 *
 	 * 1 = playing or buffering sound (play has been called, waiting for data
 	 * etc.)
-	 * 
+	 *
 	 * @return play state
 	 */
 	private native int playState()/*-{
@@ -190,13 +190,13 @@ public class SMSound {
 
 	/**
 	 * 0 = uninitialised
-	 * 
+	 *
 	 * 1 = loading
-	 * 
+	 *
 	 * 2 = failed/error
-	 * 
+	 *
 	 * 3 = loaded/success
-	 * 
+	 *
 	 * @return ready state
 	 */
 	private native int readyState()/*-{

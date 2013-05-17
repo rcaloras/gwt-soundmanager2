@@ -13,24 +13,24 @@ import com.google.gwt.user.client.Window;
  * SoundManager is created as a singleton and must be retrieved using
  * getInstance(). SoundManager controls all playback functionality including
  * play, stop, resume, pause, setting position and so forth.
- * 
+ *
  * DefaultOptions are used to set the default options on every SMSound object
  * created by SoundManager. Any option or callback set under DefaultOptions will
  * be set for every call to play or createSound.
- * 
+ *
  * @author JMILLER
  * @author RCALORAS
- * 
+ *
  */
 public class SoundManager {
 
 	public static SoundManager soundManager;
 
 	public DefaultOptions defaultOptions = new DefaultOptions();
-	
+
 	/* Used for storing SMSound IDs that reference SMSounds that have been created */
 	ArrayList<String> soundIDs = new ArrayList<String>();
-	
+
 	public class DefaultOptions {
 		public void autoPlay(boolean auto) {
 			setAutoPlay(auto);
@@ -51,13 +51,13 @@ public class SoundManager {
 		public void multiShot(boolean multishot) {
 			setMultiShot(multishot);
 		}
-		
+
 		private native void isMovieStar(boolean auto)/*-{
 		 $wnd.soundManager.defaultOptions.isMovieStar = isMp4;
 		 }-*/;
 		/**
 		 * "MovieStar" MPEG4 audio mode. This is a flash9 feature.
-		 * 
+		 *
 		 * Null (default) = auto detect MP4, AAC etc. based on URL.
 		 * @param isMp4 true = force on, ignore URL
 		 */
@@ -82,7 +82,7 @@ public class SoundManager {
 		}
 
 		private native void setVolume(int volume) /*-{
-		 $wnd.soundManagerdefaultOptions.volume(volume); 	
+		 $wnd.soundManagerdefaultOptions.volume(volume);
 		 }-*/;
 
 		public void whileLoading(Callback callback) {
@@ -90,7 +90,7 @@ public class SoundManager {
 		}
 
 		private native boolean executeWhileLoading(Callback callback)/*-{
-		 $wnd.soundManager.defaultOptions.whileloading = function() {		
+		 $wnd.soundManager.defaultOptions.whileloading = function() {
 		 callback.@com.chj.gwt.client.soundmanager2.Callback::execute()();
 		 }
 		 }-*/;
@@ -100,7 +100,7 @@ public class SoundManager {
 		}
 
 		private native void executeWhilePlaying(Callback callback)/*-{
-		 $wnd.soundManager.defaultOptions.whileplaying = function() {		
+		 $wnd.soundManager.defaultOptions.whileplaying = function() {
 		 callback.@com.chj.gwt.client.soundmanager2.Callback::execute()();
 		 }
 		 }-*/;
@@ -110,7 +110,7 @@ public class SoundManager {
 		}
 
 		private native void executeOnLoad(Callback callback)/*-{
-		 $wnd.soundManager.defaultOptions.onload = function() {		
+		 $wnd.soundManager.defaultOptions.onload = function() {
 		 callback.@com.chj.gwt.client.soundmanager2.Callback::execute()();
 		 }
 		 }-*/;
@@ -120,7 +120,7 @@ public class SoundManager {
 		}
 
 		private native void executeOnPlay(Callback callback)/*-{
-		 $wnd.soundManager.defaultOptions.onplay = function() {		
+		 $wnd.soundManager.defaultOptions.onplay = function() {
 		 callback.@com.chj.gwt.client.soundmanager2.Callback::execute()();
 		 }
 		 }-*/;
@@ -130,7 +130,7 @@ public class SoundManager {
 		}
 
 		private native void executeOnStop(Callback callback) /*-{
-		 $wnd.soundManager.defaultOptions.onstop = function() {		
+		 $wnd.soundManager.defaultOptions.onstop = function() {
 		 callback.@com.chj.gwt.client.soundmanager2.Callback::execute()();
 		 }
 		 }-*/;
@@ -140,7 +140,7 @@ public class SoundManager {
 		}
 
 		private native void executeOnFinish(Callback callback) /*-{
-		 $wnd.soundManager.defaultOptions.onfinish = function() {		
+		 $wnd.soundManager.defaultOptions.onfinish = function() {
 		 callback.@com.chj.gwt.client.soundmanager2.Callback::execute()();
 		 }
 		 }-*/;
@@ -150,7 +150,7 @@ public class SoundManager {
 		}
 
 		private native void executeOnBeforeFinishComplete(Callback callback) /*-{
-		 $wnd.soundManager.defaultOptions.onbeforefinishcomplete = function() {		
+		 $wnd.soundManager.defaultOptions.onbeforefinishcomplete = function() {
 		 callback.@com.chj.gwt.client.soundmanager2.Callback::execute()();
 		 }
 		 }-*/;
@@ -160,7 +160,7 @@ public class SoundManager {
 		}
 
 		private native void executeOnBeforeFinishTime(Callback callback) /*-{
-		 $wnd.soundManager.defaultOptions.onbeforefinishtime = function() {		
+		 $wnd.soundManager.defaultOptions.onbeforefinishtime = function() {
 		 callback.@com.chj.gwt.client.soundmanager2.Callback::execute()();
 		 }
 		 }-*/;
@@ -170,7 +170,7 @@ public class SoundManager {
 		}
 
 		private native void executeOnBeforeFinish(Callback callback) /*-{
-		 $wnd.soundManager.defaultOptions.onbeforefinish = function() {		
+		 $wnd.soundManager.defaultOptions.onbeforefinish = function() {
 		 callback.@com.chj.gwt.client.soundmanager2.Callback::execute()();
 		 }
 		 }-*/;
@@ -180,7 +180,7 @@ public class SoundManager {
 		}
 
 		private native void executeOnJustBeforeFinish(Callback callback) /*-{
-		 $wnd.soundManager.defaultOptions.onjustbeforefinish = function() {		
+		 $wnd.soundManager.defaultOptions.onjustbeforefinish = function() {
 		 callback.@com.chj.gwt.client.soundmanager2.Callback::execute()();
 		 }
 		 }-*/;
@@ -190,7 +190,7 @@ public class SoundManager {
 		}
 
 		private native void executeOnJustBeforeFinishTime(Callback callback) /*-{
-		 $wnd.soundManager.defaultOptions.onjustbeforefinishtime = function() {		
+		 $wnd.soundManager.defaultOptions.onjustbeforefinishtime = function() {
 		 callback.@com.chj.gwt.client.soundmanager2.Callback::execute()();
 		 }
 		 }-*/;
@@ -209,20 +209,20 @@ public class SoundManager {
 	private SoundManager() {
 		soundManager2Constructor();
 	}
-	
+
 	private static native void soundManager2Constructor() /*-{
     $wnd.soundManager = new $wnd.SoundManager();
     }-*/;
-	
-	
+
+
 	private native void delayedInit() /*-{
     $wnd.soundManager.beginDelayedInit(); ; // start SM2 init.
     }-*/;
-	
+
 	private native void flashVersion(int version)/*-{
 	 $wnd.soundManager.flashVersion = version;
 	 }-*/;
-	
+
 	/**
 	 * Flash build to use (8 or 9.) Some API features require 9.
 	 * Default is 8.
@@ -233,7 +233,7 @@ public class SoundManager {
 			flashVersion(version);
 		}
 	}
-	
+
 	/**
 	 * Begin delayed init of SoundManager. Called to initialize
 	 * the SoundManager instance after it's been configured.
@@ -242,14 +242,14 @@ public class SoundManager {
 	public void beginDelayedInit(){
 		delayedInit();
 	}
-	
+
 	private native void reboot() /*-{
     $wnd.soundManager.reboot();
 }-*/;
-	
+
 	/**
 	 * Returns a fully instantiated and initialized SoundManager object ready to use.
-	 * 
+	 *
 	 * @return Instantiated and initialized SoundManager singleton.
 	 */
 	public static SoundManager quickStart(){
@@ -261,10 +261,10 @@ public class SoundManager {
 		sm.beginDelayedInit();
 		return sm;
 	}
-	
+
 	/**
 	 * Returns a fully instantiated and initialized SoundManager object ready to use.
-	 * 
+	 *
 	 * @param swfPath Optional constructor arg, path to swf objects, or null.
 	 * @param flashversion The version of flash to use, 8 or 9.
 	 * @param debug debug mode enabled.
@@ -284,14 +284,14 @@ public class SoundManager {
 		sm.beginDelayedInit();
 		return sm;
 	}
-	
+
 	/**
 	 * A singleton instance of SoundManager.
 	 * smURL defaults to GWT.getModuleBaseURL().
-	 * 
+	 *
 	 * If this instance has not been initialized, beginDelayedInit() must be called after configuration
 	 * but prior to use.
-	 * 
+	 *
 	 * @return SoundManager singleton
 	 */
 	public static SoundManager getInstance() {
@@ -305,7 +305,7 @@ public class SoundManager {
 	public DefaultOptions getDefaultOptions() {
 		return defaultOptions;
 	}
-	
+
 	/**
 	 * Msec to wait for flash movie to load before failing (0 = infinity)
 	 * @param milliseconds
@@ -315,11 +315,11 @@ public class SoundManager {
 	}
 
 	private native void flashLoadTimeout(int milliseconds) /*-{
-	 $wnd.soundManager.flashLoadTimeout = milliseconds; 
+	 $wnd.soundManager.flashLoadTimeout = milliseconds;
 	 }-*/;
-	
+
 	/**
-	 * Path to SWF files. 
+	 * Path to SWF files.
 	 * @param url
 	 */
 	public void setSoundManagerURL(String url) {
@@ -340,10 +340,10 @@ public class SoundManager {
 	private native void debugMode(boolean debug)/*-{
 	 $wnd.soundManager.debugMode=debug;
 	 }-*/;
-	
+
 	/**Returns a boolean indicating whether soundManager has attempted to and succeeded in initialising.
 	 * Useful when you want to create or play a sound without knowing SM2's current state.
-	 * 
+	 *
 	 * @return false if called before initialisation, true otherwise.
 	 */
 	public boolean ok() {
@@ -382,8 +382,8 @@ public class SoundManager {
 	public void setAllowPolling(boolean polling) {
 		allowPolling(polling);
 	}
-	
-	
+
+
 
 	private native void allowPolling(boolean polling)/*-{
 	 $wnd.soundManager.allowPolling=polling;
@@ -400,13 +400,13 @@ public class SoundManager {
 	private native void nullURL(String url)/*-{
 	 $wnd.soundManager.nullURL=url;
 	 }-*/;
-	
+
 	/**
 	 * Defaults to true.
-	 * 
-	 * Use HTML5 Audio() where API is supported (most Safari, Chrome versions), Firefox (no MP3/MP4.) 
+	 *
+	 * Use HTML5 Audio() where API is supported (most Safari, Chrome versions), Firefox (no MP3/MP4.)
 	 * Ideally, transparent vs. Flash API where possible.
-	 * 
+	 *
 	 * @param useHTML5
 	 */
 	public void setUseHtml5Audio(boolean useHTML5) {
@@ -416,14 +416,14 @@ public class SoundManager {
 	private native void useHTML5Audio(boolean useHTML5)/*-{
 	 $wnd.soundManager.useHTML5Audio = useHTML5;
 	 }-*/;
-	
-	
+
+
 	/**
-	 * Overrides useHTML5audio. Defaults to true. 
-	 * 
-	 * If true and flash support present, will try to use flash for MP3/MP4 
+	 * Overrides useHTML5audio. Defaults to true.
+	 *
+	 * If true and flash support present, will try to use flash for MP3/MP4
 	 * as needed since HTML5 audio support is still quirky in browsers.
-	 * 
+	 *
 	 * @param preferFlash
 	 */
 	public void setPreferFlash(boolean preferFlash) {
@@ -433,10 +433,10 @@ public class SoundManager {
 	private native void preferFlash(boolean flashPreference)/*-{
 	 $wnd.soundManager.preferFlash = flashPreference;
 	 }-*/;
-	
+
 	/**
 	 * If true, appends ?ts={date} to break aggressive SWF caching.
-	 * 
+	 *
 	 * @param noCache
 	 */
 	public void setNoSWFCache(boolean noCache) {
@@ -450,7 +450,7 @@ public class SoundManager {
 	/**
 	 * Creates a sound using an array of SoundOptions. ID and URL are required
 	 * when using this method. If that isn't already implicitly implied.
-	 * 
+	 *
 	 * @param opts
 	 */
 	public void createSound(Option[] opts) {
@@ -466,7 +466,7 @@ public class SoundManager {
 	 }-*/;
 
 	/**
-	 * 
+	 *
 	 * @param id
 	 *            of the sound to be created.
 	 * @param path
@@ -482,7 +482,7 @@ public class SoundManager {
 
 	/**
 	 * destroys any sound created and removed it from SoundManager.
-	 * 
+	 *
 	 * @param id
 	 *            of the sound to be destroyed
 	 */
@@ -491,13 +491,13 @@ public class SoundManager {
 	}
 
 	private native void executeDestroySound(String id)/*-{
-	 $wnd.soundManager.destroySound(id); 	
+	 $wnd.soundManager.destroySound(id);
 	 }-*/;
 
 	/**
 	 * Used after a call to createSound. For example you can create a sound,
 	 * then wait for it to load before calling this play method.
-	 * 
+	 *
 	 * @param id
 	 *            of the sound to play.
 	 */
@@ -506,7 +506,7 @@ public class SoundManager {
 	}
 
 	private native void executePlay(String id) /*-{
-	 $wnd.soundManager.play(id, {}); 	
+	 $wnd.soundManager.play(id, {});
 	 }-*/;
 
 	public void play(String id, Option[] opts) {
@@ -514,7 +514,7 @@ public class SoundManager {
 	}
 
 	private native void executePlay(String id, JavaScriptObject obj) /*-{
-	 $wnd.soundManager.play(id, obj); 	
+	 $wnd.soundManager.play(id, obj);
 	 }-*/;
 
 	public void setPosition(String id, int milliseconds) {
@@ -522,12 +522,12 @@ public class SoundManager {
 	}
 
 	private native void position(String id, int milliseconds) /*-{
-	 $wnd.soundManager.setPosition(id, milliseconds); 	
+	 $wnd.soundManager.setPosition(id, milliseconds);
 	 }-*/;
 
 	/**
 	 * Volume is adjusted from 0-100
-	 * 
+	 *
 	 * @param id
 	 *            of the sound.
 	 * @param volume
@@ -538,12 +538,12 @@ public class SoundManager {
 	}
 
 	private native void volume(String id, int volume) /*-{
-	 $wnd.soundManager.setVolume(id, volume); 	
+	 $wnd.soundManager.setVolume(id, volume);
 	 }-*/;
 
 	/**
 	 * Simplest way to play a sound.
-	 * 
+	 *
 	 * @param id
 	 *            of the sound to play.
 	 * @param path
@@ -552,15 +552,15 @@ public class SoundManager {
 	public void play(String id, String path) {
 		executePlay(id, path);
 	}
-	
+
 
 	private native void executePlay(String id, String path) /*-{
-	 $wnd.soundManager.play(id, path); 	
+	 $wnd.soundManager.play(id, path);
 	 }-*/;
 
 	/**
 	 * Stop playing sound.
-	 * 
+	 *
 	 * @param id
 	 *            of the sound to stop playing.
 	 */
@@ -575,19 +575,19 @@ public class SoundManager {
 	/**
 	 * Stops all sounds from playing. If you enable multishot and layer sounds
 	 * this will stop them all from playing.
-	 * 
+	 *
 	 */
 	public void stopAll() {
 		executeStopAll();
 	}
 
 	private native void executeStopAll() /*-{
-	 $wnd.soundManager.stopAll(); 	
+	 $wnd.soundManager.stopAll();
 	 }-*/;
 
 	/**
 	 * Stops loading any currently loading sound.
-	 * 
+	 *
 	 * @param id
 	 *            of the sound to unload.
 	 */
@@ -596,12 +596,12 @@ public class SoundManager {
 	}
 
 	private native void executeUnload(String id)/*-{
-	 $wnd.soundManager.unload(id); 	
+	 $wnd.soundManager.unload(id);
 	 }-*/;
 
 	/**
 	 * Pauses the sound if it isn't already paused.
-	 * 
+	 *
 	 * @param id
 	 *            of the sound to pause.
 	 */
@@ -615,7 +615,7 @@ public class SoundManager {
 
 	/**
 	 * Resumes the sound if it was paused.
-	 * 
+	 *
 	 * @param id
 	 *            of the sound to resume.
 	 */
@@ -629,7 +629,7 @@ public class SoundManager {
 
 	/**
 	 * Toggles between pause and resume based on the state of the sound.
-	 * 
+	 *
 	 * @param id
 	 *            of the sound to toggle.
 	 */
@@ -643,7 +643,7 @@ public class SoundManager {
 
 	/**
 	 * @param Id of the sound.
-	 *           
+	 *
 	 * @return the SMSound of a sound created by SoundManager, null if one doesn't exist.
 	 */
 	public SMSound getSoundById(String id) {
@@ -661,7 +661,7 @@ public class SoundManager {
 	 * Load sounds from XML. Only the defaultOptions will be loaded into each
 	 * sound. Impossible to explicitly set properties and callbacks on XML
 	 * otherwise.
-	 * 
+	 *
 	 * @param XMLURL
 	 */
 	public void loadFromXML(String XMLURL) {
@@ -669,12 +669,12 @@ public class SoundManager {
 	}
 
 	private native void executeLoadFromXML(String XMLURL) /*-{
-	 $wnd.soundManager.loadFromXML(XMLURL); 	
+	 $wnd.soundManager.loadFromXML(XMLURL);
 	 }-*/;
 
 	/**
 	 * Fired when Sound Manager is ready to use.
-	 * 
+	 *
 	 * @deprecated Use the newer soundManager.onReady() instead of this method.
 	 * @param callback
 	 */
@@ -688,11 +688,11 @@ public class SoundManager {
 	 callback.@com.chj.gwt.client.soundmanager2.Callback::execute()();
 	 }
 	 }-*/;
-	
+
 	/**
-	 * Queue onload()-style event listener(s), triggered when soundManager 
+	 * Queue onload()-style event listener(s), triggered when soundManager
 	 * has successfully started.
-	 * 
+	 *
 	 * @param callback
 	 */
 	public void onReady(Callback callback) {
@@ -721,12 +721,12 @@ public class SoundManager {
 	 callback.@com.chj.gwt.client.soundmanager2.Callback::execute()();
 	 }
 	 }-*/;
-	
+
 	/**
-	 * Queues an event callback/handler for SM2 init failure, processed at 
-	 * (or immediately, if added after) SM2 initialization has failed, 
+	 * Queues an event callback/handler for SM2 init failure, processed at
+	 * (or immediately, if added after) SM2 initialization has failed,
 	 * just before soundManager.onerror() is called.
-	 * 
+	 *
 	 * @param callback
 	 */
 	public void onTimeout(Callback callback) {
@@ -739,7 +739,7 @@ public class SoundManager {
 	 }
 	  $wnd.soundManager.ontimeout(timeoutFunction);
 	 }-*/;
-	
+
 	/**
 	 * Gets the list of currently created sounds.
 	 * @return The list of SMSound objects currently created
@@ -754,20 +754,20 @@ public class SoundManager {
 		}
 		return sounds;
 	}
-	
+
 	public List<String> getSoundIDs() {
 		soundIDs.clear();
 		soundIDs();
 		return soundIDs;
 	}
-	
+
 	private native void soundIDs()/*-{
 		var ids = $wnd.soundManager.soundIDs;
 		for(var i = 0; i < ids.length; i++) {
 			this.@com.chj.gwt.client.soundmanager2.SoundManager::addSoundID(Ljava/lang/String;)(ids[i]);
 		}
 	}-*/;
-	
+
 	private void addSoundID(String id) {
 		soundIDs.add(id);
 	}

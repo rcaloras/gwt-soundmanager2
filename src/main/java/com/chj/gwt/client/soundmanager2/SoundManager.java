@@ -53,7 +53,7 @@ public class SoundManager {
 		}
 
 		private native void isMovieStar(boolean auto)/*-{
-		 $wnd.soundManager.defaultOptions.isMovieStar = isMp4;
+		 $wnd.soundManager.defaultOptions.isMovieStar = auto;
 		 }-*/;
 		/**
 		 * "MovieStar" MPEG4 audio mode. This is a flash9 feature.
@@ -82,7 +82,7 @@ public class SoundManager {
 		}
 
 		private native void setVolume(int volume) /*-{
-		 $wnd.soundManagerdefaultOptions.volume(volume);
+		 $wnd.soundManager.defaultOptions.volume(volume);
 		 }-*/;
 
 		public void whileLoading(Callback callback) {

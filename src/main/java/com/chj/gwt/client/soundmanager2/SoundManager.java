@@ -89,7 +89,7 @@ public class SoundManager {
 			executeWhileLoading(callback);
 		}
 
-		private native boolean executeWhileLoading(Callback callback)/*-{
+		private native void executeWhileLoading(Callback callback)/*-{
 		 $wnd.soundManager.defaultOptions.whileloading = function() {
 		 callback.@com.chj.gwt.client.soundmanager2.Callback::execute()();
 		 }

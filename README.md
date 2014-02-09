@@ -19,7 +19,7 @@ There's also a small example project [Gwt-SoundManager2 Example](https://github.
 #Quick Start to using GWT-SoundManager2
 ##Add it to your project
 
-Reference the jar file in your classpath. The latest release .jar can be found here [gwt-soundmanager2-0.1.3.jar](http://bit.ly/Yl5NwV), in the [Downloads](https://github.com/rcaloras/gwt-soundmanager2/downloads) tab, or in the [Maven-Repo](https://github.com/rcaloras/rcaloras-mvn-repo/tree/master/releases/com/chj/gwt-soundmanager2). Snapshots can be found in the [Maven-Sanpshot-Repo](https://github.com/rcaloras/rcaloras-mvn-repo/tree/master/snapshots/com/chj/gwt-soundmanager2).
+Reference the jar file in your classpath. The latest release .jar can be found here [gwt-soundmanager2-0.1.4.jar](http://bit.ly/1gcHcW7), in the [Downloads](https://github.com/rcaloras/gwt-soundmanager2/downloads) tab, or in the [Maven-Repo](https://github.com/rcaloras/rcaloras-mvn-repo/tree/master/releases/com/chj/gwt-soundmanager2). Snapshots can be found in the [Maven-Sanpshot-Repo](https://github.com/rcaloras/rcaloras-mvn-repo/tree/master/snapshots/com/chj/gwt-soundmanager2).
 ###If you're using maven
 ####Add the repository
 ```xml
@@ -35,7 +35,7 @@ Reference the jar file in your classpath. The latest release .jar can be found h
       <dependency>
          <groupId>com.chj</groupId>
          <artifactId>gwt-soundmanager2</artifactId>
-         <version>0.1.3</version>
+         <version>0.1.4</version>
       </dependency>
 ```
 

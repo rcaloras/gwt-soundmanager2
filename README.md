@@ -17,7 +17,7 @@ Follow us on [Twitter](http://www.twitter.com/coolhandjuke)! Any issues or quest
 There's also a small example project [Gwt-SoundManager2 Example](https://github.com/rcaloras/gwt-soundmanager2-example).
 
 # Quick Start using GWT-SoundManager2
-##Add it to your project
+## Add it to your project
 
 Reference the jar file in your classpath. The latest release .jar can be found here [gwt-soundmanager2-0.1.4.jar](http://bit.ly/1iDAxoL), in the [Downloads](https://github.com/rcaloras/gwt-soundmanager2/downloads) tab, or in the [Maven-Repo](https://github.com/rcaloras/rcaloras-mvn-repo/tree/master/releases/com/chj/gwt-soundmanager2). Snapshots can be found in the [Maven-Sanpshot-Repo](https://github.com/rcaloras/rcaloras-mvn-repo/tree/master/snapshots/com/chj/gwt-soundmanager2).
 ### If you're using maven

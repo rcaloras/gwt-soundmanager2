@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.chj</groupId>
 	<artifactId>gwt-soundmanager2</artifactId>
-	<version>0.1.5-SNAPSHOT</version>
+	<version>0.1.6</version>
 	<packaging>jar</packaging>
 	<name>gwt-soundmanager2</name>
 	<description>Updated GWT Soundmanager2 wrapper.</description>
@@ -11,7 +11,8 @@
 		<connection>scm:git:git@github.com:rcaloras/gwt-soundmanager2.git</connection>
 		<developerConnection>scm:git:git@github.com:rcaloras/gwt-soundmanager2.git</developerConnection>
 		<url>http://github.com/rcaloras/gwt-soundmanager2</url>
-	</scm>
+	  <tag>HEAD</tag>
+  </scm>
 	<licenses>
 		<license>
 			<name>The Apache Software License, Version 2.0</name>
